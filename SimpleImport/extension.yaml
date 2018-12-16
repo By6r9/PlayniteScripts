@@ -1,0 +1,14 @@
+Name: Simple Import
+Author: Zygzak
+Version: 1.0
+Module: SimpleImport.py
+Type: Script
+Functions: 
+    - Description: Simple Import
+      FunctionName: simpleimport
+    - Description: Simple Region and Version
+      FunctionName: SimpleRegionVersionSource
+    - Description: Simple Filename
+      FunctionName: SimpleFilename
+    - Description: Simple Mark Removed
+      FunctionName: SimpleMarkRemoved  
