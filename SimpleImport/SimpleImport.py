@@ -91,14 +91,6 @@ def addregion(gamefile):
         return str(p[0]).replace("(", "").replace(")", "")
 
 
-def addsimpleversion_nointro(gamefile):
-    p = re.findall(r'\(.*?\)', str(gamefile))
-    if len(p) > 0:
-        # for item in p[1:]:
-        versions = str(p[1:]).replace("(", "").replace(")", "").replace("[", "").replace("]", "").replace("'", "")
-        return versions
-
-
 def addversion(gamefile):
     p = re.findall(r'\(.*?\)', str(gamefile))
     if len(p) > 1:
@@ -139,41 +131,6 @@ def checkdatabase(path):
         if str(game.GameImagePath) == path:
             result = True
     return result
-
-
-def SimpleRegionVersionSource():
-    import re
-    import os
-    for game in PlayniteApi.MainView.SelectedGames:
-        __logger.Info(str(game.Name))
-        # split path and filename
-        head, tail = os.path.split(game.GameImagePath)
-        # Source
-        if (game.Source == None) or (game.Source == ''):
-            if 'nointro' in game.GameImagePath:
-                game.Source = 'No-Intro'
-                PlayniteApi.Database.UpdateGame(game)
-            if 'redump' in game.GameImagePath:
-                game.Source = 'Redump'
-                PlayniteApi.Database.UpdateGame(game)
-        p = re.findall(r'\(.*?\)', str(tail))
-        # region
-        if len(p) > 0:
-            game.Region = str(p[0]).replace("(", "").replace(")", "")
-            PlayniteApi.Database.UpdateGame(game)
-        # versions
-        if len(p) > 1:
-            versions = ''
-            for item in p[1:]:
-                # if you want to skip (Disc x) part
-                # if 'Disc' not in item:
-                if '--------' not in item:
-                    versions += str(item) + ','
-            if versions.endswith(','):
-                versions = versions[0:-1]
-
-            game.Version = versions.replace("(", "").replace(")", "").replace(",", ", ")
-            PlayniteApi.Database.UpdateGame(game)
 
 
 def SimpleFilename():
