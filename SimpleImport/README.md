@@ -1,5 +1,6 @@
 ## Installation 
-Create `SimpleImport` directory in `Extensions`, copy `extension.yaml`, `SimpleImport.py`, `romimport.ini` into it.
+* create `SimpleImport` directory in `Extensions`, copy `extension.yaml`, `SimpleImport.py`, `romimport.ini` into it.
+* or, unpack https://github.com/By6r9/PlayniteScripts/releases/download/0.1/SimpleImport.zip into `Extensions`
 
 ## Simple Filename (selected games)
 Sets `Name` to the text before first ` (`. Useful if you want to have No-Intro/Redump names. Example:
