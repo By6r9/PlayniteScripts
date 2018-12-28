@@ -11,4 +11,6 @@ Functions:
     - Description: Simple Filename
       FunctionName: SimpleFilename
     - Description: Simple Mark Removed
-      FunctionName: SimpleMarkRemoved  
+      FunctionName: SimpleMarkRemoved
+    - Description: Simple Change Emulator
+      FunctionName: ChangeEmulator 
