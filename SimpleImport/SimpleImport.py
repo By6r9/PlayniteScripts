@@ -143,6 +143,41 @@ def SimpleFilename():
         game.Name = str(tail.split(' (')[0])
         PlayniteApi.Database.UpdateGame(game)
 
+        
+def SimpleRegionVersionSource():
+    import re
+    import os
+    for game in PlayniteApi.MainView.SelectedGames:
+        __logger.Info(str(game.Name))
+        # split path and filename
+        head, tail = os.path.split(game.GameImagePath)
+        # Source
+        if (game.Source == None) or (game.Source == ''):
+            if 'nointro' in game.GameImagePath:
+                game.Source = 'No-Intro'
+                PlayniteApi.Database.UpdateGame(game)
+            if 'redump' in game.GameImagePath:
+                game.Source = 'Redump'
+                PlayniteApi.Database.UpdateGame(game)
+        p = re.findall(r'\(.*?\)', str(tail))
+        # region
+        if len(p) > 0:
+            game.Region = str(p[0]).replace("(", "").replace(")", "")
+            PlayniteApi.Database.UpdateGame(game)
+        # versions
+        if len(p) > 1:
+            versions = ''
+            for item in p[1:]:
+                # if you want to skip (Disc x) part
+                # if 'Disc' not in item:
+                if '--------' not in item:
+                    versions += str(item) + ','
+            if versions.endswith(','):
+                versions = versions[0:-1]
+
+            game.Version = versions.replace("(", "").replace(")", "").replace(",", ", ")
+            PlayniteApi.Database.UpdateGame(game)        
+        
 
 def SimpleMarkRemoved():
     import os.path
@@ -162,3 +197,22 @@ def SimpleMarkRemoved():
 
     if counter > 0:
             PlayniteApi.Dialogs.ShowMessage('Marked: ' + str(counter))
+
+
+def ChangeEmulator():
+    newemulator = PlayniteApi.Dialogs.SelectString('Input emulator name', 'Change emulator', '')
+    newprofile = PlayniteApi.Dialogs.SelectString('Input profile name', 'Change emulator profile', '')
+    for game in PlayniteApi.MainView.SelectedGames:
+        emulator = Emulator()
+        emulator.Id, emulator.Profiles, emulator.Name = emuidsearch(newemulator.SelectedString)
+        __logger.Info(str(emulator.Name))
+        try:
+            gametask = GameAction()
+            gametask.Type = GameActionType.Emulator
+            gametask.EmulatorId = emulator.Id
+            gametask.EmulatorProfileId = emuprofilesearch(emulator.Profiles, newprofile.SelectedString)
+            game.PlayAction = gametask
+        except Exception as identifier:
+            __logger.Error(str(identifier))
+        PlayniteApi.Database.UpdateGame(game)
+        
