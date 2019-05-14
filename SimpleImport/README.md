@@ -1,6 +1,6 @@
 ## Installation 
 * create `SimpleImport` directory in `Extensions`, copy `extension.yaml`, `SimpleImport.py`, `romimport.ini` into it.
-* or, unpack https://github.com/By6r9/PlayniteScripts/releases/download/0.1/SimpleImport.zip into `Extensions`
+* or, unpack https://github.com/By6r9/PlayniteScripts/releases/download/1.1/SimpleImport.zip into `Extensions`
 
 ## Simple Filename (selected games)
 Sets `Name` to the text before first ` (`. Useful if you want to have No-Intro/Redump names. Example:
@@ -69,3 +69,6 @@ EmulatorProfile: mGBA
 | Microsoft Msx | Microsoft MSX |
 | 1 | |
 | 2 | |
+
+## Simple Change Emulator
+Changes emulator and emulator profile for selected games. Case sensitive.
