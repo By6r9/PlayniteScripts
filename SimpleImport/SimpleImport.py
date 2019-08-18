@@ -182,17 +182,17 @@ def SimpleRegionVersionSource():
 def SimpleMarkRemoved():
     import os.path
     # __logger.Info('SMR:' + str(len(PlayniteApi.MainView.SelectedGames)))
-    PlayniteApi.Dialogs.ShowMessage('Games to check: ' + str(len(PlayniteApi.Database.GetGames())))
+    PlayniteApi.Dialogs.ShowMessage('Games to check: ' + str(len(PlayniteApi.Database.Games))
     counter = 0
-    for game in PlayniteApi.Database.GetGames():
-        if str(PlayniteApi.Database.GetPlatform(game.PlatformId)) != 'PC':
+    for game in PlayniteApi.Database.Games:
+        if str(game.Platform) != 'PC':
             if os.path.isfile(game.GameImagePath) is False:
                 # state = GameState()
                 # state.Installed = False
                 # game.State = state
                 game.IsInstalled = False
                 __logger.Info('SMR:' + game.GameImagePath)
-                PlayniteApi.Database.UpdateGame(game)
+                PlayniteApi.Database.Games.Update(game)
                 counter += 1
 
     if counter > 0:
