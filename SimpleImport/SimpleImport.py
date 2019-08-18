@@ -141,7 +141,7 @@ def SimpleFilename():
         head, tail = os.path.split(game.GameImagePath)
         tail = os.path.splitext(tail)[0]
         game.Name = str(tail.split(' (')[0])
-        PlayniteApi.Database.UpdateGame(game)
+        PlayniteApi.Database.Games.Update(game)
 
         
 def SimpleRegionVersionSource():
