@@ -1,0 +1,10 @@
+Name: Simple Change
+Author: Zygzak
+Version: 1.0
+Module: SimpleChange.py
+Type: Script
+Functions: 
+    - Description:  Simple Change Emulator
+      FunctionName: changeemulator
+    - Description: Simple Change Extension
+      FunctionName: changeextension 
