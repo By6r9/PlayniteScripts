@@ -32,7 +32,7 @@ def changeextension():
     newextension = PlayniteApi.Dialogs.SelectString('New extension, with a dot', 'Change extension', '.7z')
     for game in PlayniteApi.MainView.SelectedGames:
         try:
-            if oldextension.SelectedString in game.GameImagePath:
+            if (oldextension.SelectedString in game.GameImagePath) and (len(oldextension.SelectedString)>0):
                 newGameImagePath = game.GameImagePath.replace(oldextension.SelectedString, newextension.SelectedString)
                 game.GameImagePath = newGameImagePath
                 PlayniteApi.Database.Games.Update(game)
