@@ -155,15 +155,15 @@ def SimpleRegionVersionSource():
         if (game.Source == None) or (game.Source == ''):
             if 'nointro' in game.GameImagePath:
                 game.Source = 'No-Intro'
-                PlayniteApi.Database.UpdateGame(game)
+                PlayniteApi.Database.Games.Update(game)
             if 'redump' in game.GameImagePath:
                 game.Source = 'Redump'
-                PlayniteApi.Database.UpdateGame(game)
+                PlayniteApi.Database.Games.Update(game)
         p = re.findall(r'\(.*?\)', str(tail))
         # region
         if len(p) > 0:
             game.Region = str(p[0]).replace("(", "").replace(")", "")
-            PlayniteApi.Database.UpdateGame(game)
+            PlayniteApi.Database.Games.Update(game)
         # versions
         if len(p) > 1:
             versions = ''
@@ -176,13 +176,13 @@ def SimpleRegionVersionSource():
                 versions = versions[0:-1]
 
             game.Version = versions.replace("(", "").replace(")", "").replace(",", ", ")
-            PlayniteApi.Database.UpdateGame(game)        
+            PlayniteApi.Database.Games.Update(game)        
         
 
 def SimpleMarkRemoved():
     import os.path
     # __logger.Info('SMR:' + str(len(PlayniteApi.MainView.SelectedGames)))
-    PlayniteApi.Dialogs.ShowMessage('Games to check: ' + str(len(PlayniteApi.Database.Games))
+    PlayniteApi.Dialogs.ShowMessage('Games to check: ' + str(len(PlayniteApi.Database.Games)))
     counter = 0
     for game in PlayniteApi.Database.Games:
         if str(game.Platform) != 'PC':
@@ -212,7 +212,7 @@ def ChangeEmulator():
             gametask.EmulatorId = emulator.Id
             gametask.EmulatorProfileId = emuprofilesearch(emulator.Profiles, newprofile.SelectedString)
             game.PlayAction = gametask
+            PlayniteApi.Database.Games.Update(game)                       
         except Exception as identifier:
             __logger.Error(str(identifier))
-        PlayniteApi.Database.UpdateGame(game)
-        
+     
